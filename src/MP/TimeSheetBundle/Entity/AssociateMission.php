@@ -37,7 +37,7 @@ class AssociateMission
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="MP\TimeSheetBundle\Entity\Mission")
+     * @ORM\ManyToOne(targetEntity="MP\TimeSheetBundle\Entity\Mission", inversedBy="associate")
      * @ORM\JoinColumn(nullable=false)
      *
      */
@@ -45,7 +45,7 @@ class AssociateMission
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="MP\TimeSheetBundle\Entity\Associate")
+     * @ORM\ManyToOne(targetEntity="MP\TimeSheetBundle\Entity\Associate", inversedBy="mission")
      * @ORM\JoinColumn(nullable=false)
      *
      */

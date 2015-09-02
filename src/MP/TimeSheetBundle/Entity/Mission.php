@@ -320,7 +320,7 @@ class Mission
      * @param \MP\TimeSheetBundle\Entity\AssociateMission $associate
      * @return Mission
      */
-    public function addAssociate(\MP\TimeSheetBundle\Entity\AssociateMission $associate)
+    public function addAssociate(AssociateMission $associate)
     {
         $this->associate[] = $associate;
 
@@ -332,7 +332,7 @@ class Mission
      *
      * @param \MP\TimeSheetBundle\Entity\AssociateMission $associate
      */
-    public function removeAssociate(\MP\TimeSheetBundle\Entity\AssociateMission $associate)
+    public function removeAssociate(AssociateMission $associate)
     {
         $this->associate->removeElement($associate);
     }

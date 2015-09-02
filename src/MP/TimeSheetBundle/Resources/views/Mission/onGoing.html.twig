@@ -1,6 +1,7 @@
 {% for entity in entities %}
     <div class="panel panel-default">
         <div class="panel-heading">
+            {{ dump(entity) }}
             {{ entity }}
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('mission_add_associates', {'id': entity.id}) }}" style="float: right;">
@@ -37,24 +38,24 @@
                 {% endif %}
                 </thead>
                 <tbody>
-                {% for associate in entity.associates %}
+                {% for entity in entity.associate %}
                     <tr>
                         <td>
-                            <a href="{{ path('associate_show', { 'id': associate.id }) }}"
-                                    ><span class="badge">{{ associate.id }}</span>
+                            <a href="{{ path('associate_show', { 'id': entity.associate.id }) }}"
+                                    ><span class="badge">{{ entity.associate.id }}</span>
                             </a>
                         </td>
-                        <td>{{ associate.name }}</td>
-                        <td>{{ associate.surname }}</td>
-                        <td>{{ associate.email }}</td>
-                        <td>{{ associate.post}}</td>
-                        <td>{{ associate.department.name }}</td>
+                        <td>{{ entity.associate.name }}</td>
+                        <td>{{ entity.associate.surname }}</td>
+                        <td>{{ entity.associate.email }}</td>
+                        <td>{{ entity.associate.post}}</td>
+                        <td>{{ entity.associate.department.name }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
-                                <a href="{{ path('associate_show', { 'id': associate.id }) }}">
+                                <a href="{{ path('associate_show', { 'id': entity.associate.id }) }}">
                                     <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
                                 </a>
-                                <a href="{{ path('mission_associate_remove', { 'id': entity.id, 'asid': associate.id}) }}">
+                                <a href="{{ path('mission_associate_remove', { 'id': entity.id, 'asid': entity.associate.id}) }}">
                                     <span style="font-size:1.5em;" class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>
