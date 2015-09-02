@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="MP\TimeSheetBundle\Entity\TimeSheetRepository")
  *
- * @UniqueEntity(fields={ "day", "associate"}, message="IL y a déja une feuille de temps à cette date")
+ * @UniqueEntity(fields={ "day", "associate"}, message="il y a déja une feuille de temps à cette date")
  */
 class TimeSheet
 {
@@ -253,7 +253,7 @@ class TimeSheet
         return $this->mission;
     }
 
-    function __contruct()
+    function __construct()
     {
         $this->setValidated(false);
         $this->setComment('');

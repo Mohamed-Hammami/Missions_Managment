@@ -2,7 +2,6 @@
 
 namespace MP\TimeSheetBundle\Controller;
 
-use MP\TimeSheetBundle\Entity\Department;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

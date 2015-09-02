@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="MP\TimeSheetBundle\Entity\MissionRepository")
  *
- * @Assert\Callback(methods={"isContentValid"})
  */
 class Mission
 {
@@ -163,7 +162,7 @@ class Mission
      * @param \MP\TimeSheetBundle\Entity\Nature $nature
      * @return Mission
      */
-    public function setNature(\MP\TimeSheetBundle\Entity\Nature $nature)
+    public function setNature(Nature $nature)
     {
         $this->nature = $nature;
 
@@ -194,7 +193,7 @@ class Mission
      * @param \MP\TimeSheetBundle\Entity\Associate $associates
      * @return Mission
      */
-    public function addAssociate(\MP\TimeSheetBundle\Entity\Associate $associates)
+    public function addAssociate(Associate $associates)
     {
         $this->associates[] = $associates;
 
@@ -206,7 +205,7 @@ class Mission
      *
      * @param \MP\TimeSheetBundle\Entity\Associate $associates
      */
-    public function removeAssociate(\MP\TimeSheetBundle\Entity\Associate $associates)
+    public function removeAssociate(Associate $associates)
     {
         $this->associates->removeElement($associates);
     }
@@ -320,7 +319,7 @@ class Mission
      * @param \MP\TimeSheetBundle\Entity\Client $clients
      * @return Mission
      */
-    public function setClients(\MP\TimeSheetBundle\Entity\Client $clients)
+    public function setClients(Client $clients)
     {
         $this->clients = $clients;
 
@@ -338,17 +337,13 @@ class Mission
     }
 
     /**
-     * @Assert\Callback
+     *
+     * @Assert\True(message = "La date de fin doit être aprés celle de début")
+     *
      */
-    public function isContentValid(ExecutionContextInterface $context)
+    public function isEndDateValid()
     {
-        if ( $this->getEndDate() < $this->getStartDate() ){
-            $context
-                ->buildViolation('La date de fin doit être aprés la date de début')
-                ->atPath('endDate')
-                ->addViolation();
-        }
-
+        return ($this->getStartDate() < $this->getEndDate());
     }
 
 

@@ -263,11 +263,10 @@ class MissionController extends Controller
             ->add('startDate', 'date', array(
                     'label' => 'Date de début:',
                     'data' => new \DateTime(),
-                   /* 'constraints' => new Range(array(
-                        'min' => ' - 2 days',
-                        'minMessage' => 'date invalide'
-
-                    ))*/
+                    'constraints' => new Assert\GreaterThanOrEqual(array(
+                            'value' => new \DateTime(),
+                            'message' => "la date de début doit être supérieure à aujourd'hui",
+                        ))
                 ))
             ->add('hourNum', 'number', array(
                     'label' => 'Cout prévisionnel(en heures):',
@@ -279,11 +278,10 @@ class MissionController extends Controller
             ->add('endDate', 'date', array(
                     'label' => 'Date de fin prévisionnel:',
                     'data' => new \DateTime(),
-                    /*'constraints' => new Range( array(
-                            'min' => ' -2 days',
-                            'minMessage' => 'date invalide'
-
-                        ))*/
+                    'constraints' => new Assert\GreaterThan(array(
+                            'value' => new \DateTime(),
+                            'message' => "la date de fin doit être supérieure à aujourd'hui",
+                        ))
                 ))
             ->add('nature', 'entity', array(
                     'label' => 'Nature:',
@@ -302,7 +300,7 @@ class MissionController extends Controller
                 ))
 
             ->add('manager', 'entity', array(
-                    'label' => 'Manager/',
+                    'label' => 'Manager',
                     'class' => 'MPTimeSheetBundle:Associate',
                     'query_builder' => function(AssociateRepository $repo){
                         return $repo->findAllManagers();
