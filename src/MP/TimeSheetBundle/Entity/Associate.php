@@ -105,9 +105,9 @@ class Associate implements UserInterface
     private $picture;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Mission", mappedBy="associates")
+     * @ORM\OneToMany(targetEntity="AssociateMission", mappedBy="associate")
      */
-    private $missions;
+    private $mission;
 
     /**
      * Get id
@@ -194,7 +194,7 @@ class Associate implements UserInterface
      * @param \MP\TimeSheetBundle\Entity\Department $department
      * @return Associate
      */
-    public function setDepartment(\MP\TimeSheetBundle\Entity\Department $department)
+    public function setDepartment(Department $department)
     {
         $this->department = $department;
 
@@ -217,7 +217,7 @@ class Associate implements UserInterface
      * @param \MP\TimeSheetBundle\Entity\Picture $picture
      * @return Associate
      */
-    public function setPicture(\MP\TimeSheetBundle\Entity\Picture $picture = null)
+    public function setPicture(Picture $picture = null)
     {
         $this->picture = $picture;
 
@@ -245,44 +245,10 @@ class Associate implements UserInterface
      */
     public function __construct()
     {
-        $this->missions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->setFirstLogin(true);
         $this->setRoles(array('ROLE_USER'));
         $this->setPassword('defaultpass');
         $this->setSalt('');
-    }
-
-    /**
-     * Add missions
-     *
-     * @param \MP\TimeSheetBundle\Entity\Associate $missions
-     * @return Associate
-     */
-    public function addMission(\MP\TimeSheetBundle\Entity\Associate $missions)
-    {
-        $this->missions[] = $missions;
-
-        return $this;
-    }
-
-    /**
-     * Remove missions
-     *
-     * @param \MP\TimeSheetBundle\Entity\Associate $missions
-     */
-    public function removeMission(\MP\TimeSheetBundle\Entity\Associate $missions)
-    {
-        $this->missions->removeElement($missions);
-    }
-
-    /**
-     * Get missions
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMissions()
-    {
-        return $this->missions;
     }
 
     /**
@@ -425,5 +391,38 @@ class Associate implements UserInterface
     public function getFirstLogin()
     {
         return $this->firstLogin;
+    }
+
+    /**
+     * Add mission
+     *
+     * @param \MP\TimeSheetBundle\Entity\AssociateMission $mission
+     * @return Associate
+     */
+    public function addMission(AssociateMission $mission)
+    {
+        $this->mission[] = $mission;
+
+        return $this;
+    }
+
+    /**
+     * Remove mission
+     *
+     * @param \MP\TimeSheetBundle\Entity\AssociateMission $mission
+     */
+    public function removeMission(AssociateMission $mission)
+    {
+        $this->mission->removeElement($mission);
+    }
+
+    /**
+     * Get mission
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMission()
+    {
+        return $this->mission;
     }
 }

@@ -3,9 +3,7 @@
 namespace MP\TimeSheetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Mission
@@ -82,9 +80,9 @@ class Mission
     private $clients;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Associate", inversedBy="missions")
+     * @ORM\OneToMany(targetEntity="AssociateMission", mappedBy="mission")
      */
-    private $associates;
+    private $associate;
 
 
     /**
@@ -187,38 +185,6 @@ class Mission
         return $displayName;
     }
 
-    /**
-     * Add associates
-     *
-     * @param \MP\TimeSheetBundle\Entity\Associate $associates
-     * @return Mission
-     */
-    public function addAssociate(Associate $associates)
-    {
-        $this->associates[] = $associates;
-
-        return $this;
-    }
-
-    /**
-     * Remove associates
-     *
-     * @param \MP\TimeSheetBundle\Entity\Associate $associates
-     */
-    public function removeAssociate(Associate $associates)
-    {
-        $this->associates->removeElement($associates);
-    }
-
-    /**
-     * Get associates
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAssociates()
-    {
-        return $this->associates;
-    }
 
     /**
      * Set hourNum
@@ -347,4 +313,37 @@ class Mission
     }
 
 
+
+    /**
+     * Add associate
+     *
+     * @param \MP\TimeSheetBundle\Entity\AssociateMission $associate
+     * @return Mission
+     */
+    public function addAssociate(\MP\TimeSheetBundle\Entity\AssociateMission $associate)
+    {
+        $this->associate[] = $associate;
+
+        return $this;
+    }
+
+    /**
+     * Remove associate
+     *
+     * @param \MP\TimeSheetBundle\Entity\AssociateMission $associate
+     */
+    public function removeAssociate(\MP\TimeSheetBundle\Entity\AssociateMission $associate)
+    {
+        $this->associate->removeElement($associate);
+    }
+
+    /**
+     * Get associate
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAssociate()
+    {
+        return $this->associate;
+    }
 }
