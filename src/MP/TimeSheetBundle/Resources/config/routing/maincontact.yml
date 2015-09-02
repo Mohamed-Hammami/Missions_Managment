@@ -1,0 +1,30 @@
+maincontact:
+    path:     /
+    defaults: { _controller: "MPTimeSheetBundle:MainContact:index" }
+
+maincontact_show:
+    path:     /{id}/show
+    defaults: { _controller: "MPTimeSheetBundle:MainContact:show" }
+
+maincontact_new:
+    path:     /new
+    defaults: { _controller: "MPTimeSheetBundle:MainContact:new" }
+
+maincontact_create:
+    path:     /create
+    defaults: { _controller: "MPTimeSheetBundle:MainContact:create" }
+    methods:  POST
+
+maincontact_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MPTimeSheetBundle:MainContact:edit" }
+
+maincontact_update:
+    path:     /{id}/update
+    defaults: { _controller: "MPTimeSheetBundle:MainContact:update" }
+    methods:  [POST, PUT]
+
+maincontact_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MPTimeSheetBundle:MainContact:delete" }
+    methods:  [POST, DELETE]

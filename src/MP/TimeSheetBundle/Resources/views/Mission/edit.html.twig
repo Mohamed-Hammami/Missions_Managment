@@ -1,0 +1,16 @@
+{% extends '::index.html.twig' %}
+
+{% block body -%}
+    <h1>Mission edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('mission') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

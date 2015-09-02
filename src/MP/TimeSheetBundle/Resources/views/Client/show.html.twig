@@ -1,0 +1,48 @@
+{% extends is_granted('ROLE_ADMIN')
+? 'MPTimeSheetBundle::layout.html.twig'
+: 'MPTimeSheetBundle::layoutUser.html.twig'
+%}
+
+{% block body -%}
+    <h2>Nouveau client crée</h2>
+    {{ dump(entity) }}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ entity }}</div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                    <th>Contact principal</th>
+                    <th>Secteur d'activité</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ entity.id }}</td>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.adresse }}</td>
+                    <td>{{ entity.mainContact }}</td>
+                    <td>{{ entity.secteurActivite }}</td>
+                    <td>
+                        {# <a href="{{ path('associate_show', { 'id': entity.id }) }}">
+                             <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
+                         </a>#}
+                        <a href="{{ path('client_edit', { 'id': entity.id }) }}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a href="{{ path('client') }}">
+        <span style="font-size:1.5em;" class="glyphicon glyphicon-arrow-left"></span> retour à la liste
+    </a>
+
+{% endblock %}

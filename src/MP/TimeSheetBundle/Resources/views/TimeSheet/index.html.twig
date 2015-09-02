@@ -1,0 +1,28 @@
+{% extends 'MPTimeSheetBundle::layout.html.twig' %}
+
+{% block title %}
+    Fueilles de temps - {{ parent() }}
+{% endblock %}
+
+{% block timeSheet_body -%}
+    <h2>Feuilles de temps:</h2>
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a data-toggle="tab" href="#nonValidated">Non Validées</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#validated">Validées</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="nonValidated" class="tab-pane fade in active">
+            {{ render(controller("MPTimeSheetBundle:TimeSheet:indexNonValidated")) }}
+        </div>
+        <div id="validated" class="tab-pane fade">
+            {{ render(controller("MPTimeSheetBundle:TimeSheet:indexValidated")) }}
+        </div>
+    </div>
+
+{% endblock %}

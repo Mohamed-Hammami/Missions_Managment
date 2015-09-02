@@ -1,0 +1,41 @@
+mp_time_sheet_department:
+    resource: "@MPTimeSheetBundle/Resources/config/routing/department.yml"
+    prefix:   /department
+
+mp_time_sheet_timesheet:
+    resource: "@MPTimeSheetBundle/Resources/config/routing/timesheet.yml"
+    prefix:   /timesheet
+
+mp_time_sheet_mission:
+    resource: "@MPTimeSheetBundle/Resources/config/routing/mission.yml"
+    prefix:   /mission
+
+mp_time_sheet_client:
+    resource: "@MPTimeSheetBundle/Resources/config/routing/client.yml"
+    prefix:   /client
+
+mp_time_sheet_maincontact:
+    resource: "@MPTimeSheetBundle/Resources/config/routing/maincontact.yml"
+    prefix:   /maincontact
+
+mp_time_sheet_associate:
+    resource: "@MPTimeSheetBundle/Resources/config/routing/associate.yml"
+    prefix:   /associate
+
+mp_time_sheet_accueil:
+    resource: "@MPTimeSheetBundle/Resources/config/routing/accueil.yml"
+    prefix:   /accueil
+
+login:
+    pattern:   /login
+    defaults: { _controller: MPTimeSheetBundle:Security:login}
+
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout
+
+first_login:
+    pattern:  /firstlog
+    defaults: { _controller: MPTimeSheetBundle:Security:firstLogin}

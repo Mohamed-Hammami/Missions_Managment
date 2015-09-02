@@ -1,0 +1,46 @@
+{% extends 'MPTimeSheetBundle::layout.html.twig' %}
+
+{% block body -%}
+    <h2>Nouveau collaborateur crée</h2>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ entity }}</div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Poste</th>
+                    <th>Dépatement</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ entity.id }}</td>
+                        <td>{{ entity.name }}</td>
+                        <td>{{ entity.surname }}</td>
+                        <td>{{ entity.email }}</td>
+                        <td>{{ entity.post }}</td>
+                        <td>{{ entity.department.name }}</td>
+                        <td>
+                            {# <a href="{{ path('associate_show', { 'id': entity.id }) }}">
+                                 <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
+                             </a>#}
+                            <a href="{{ path('associate_edit', { 'id': entity.id }) }}">
+                                <span style="font-size:1.5em;" class="glyphicon glyphicon-edit"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a href="{{ path('associate') }}">
+        <span style="font-size:1.5em;" class="glyphicon glyphicon-arrow-left"></span> retour à la liste
+    </a>
+
+{% endblock %}

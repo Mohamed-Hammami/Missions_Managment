@@ -1,0 +1,50 @@
+mission:
+    path:     /
+    defaults: { _controller: "MPTimeSheetBundle:Mission:index" }
+
+mission_show:
+    path:     /{id}/show
+    defaults: { _controller: "MPTimeSheetBundle:Mission:show" }
+
+mission_new:
+    path:     /new
+    defaults: { _controller: "MPTimeSheetBundle:Mission:new" }
+
+mission_create:
+    path:     /create
+    defaults: { _controller: "MPTimeSheetBundle:Mission:create" }
+    methods:  POST
+
+mission_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MPTimeSheetBundle:Mission:edit" }
+
+mission_update:
+    path:     /{id}/update
+    defaults: { _controller: "MPTimeSheetBundle:Mission:update" }
+    methods:  [POST, PUT]
+
+mission_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MPTimeSheetBundle:Mission:delete" }
+    methods:  [POST, DELETE]
+
+mission_terminate:
+    path:      /{id}/terminate
+    defaults: { _controller: "MPTimeSheetBundle:Mission:terminate" }
+
+mission_associate_remove:
+    path:      /{id}-{asid}/removeAssociate
+    defaults: { _controller: "MPTimeSheetBundle:Mission:removeAssociate" }
+
+mission_on_going:
+    path:      /onGoing
+    defaults: { _controller: "MPTimeSheetBundle:Mission:onGoing" }
+
+mission_completed:
+    pattern:  /completed
+    defaults: { _controller: "MPTimeSheetBundle:Mission:completed" }
+
+mission_add_associates:
+    pattern:  /{id}/addAssociates
+    defaults: { _controller: "MPTimeSheetBundle:Mission:addAssociate"}

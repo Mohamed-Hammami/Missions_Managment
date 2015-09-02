@@ -1,0 +1,32 @@
+{% extends is_granted('ROLE_ADMIN')
+? 'MPTimeSheetBundle::layout.html.twig'
+: 'MPTimeSheetBundle::layoutUser.html.twig'
+%}
+
+{% block title %}
+    Missions
+{% endblock %}
+
+{% block body %}
+    <h2>Liste de missions:</h2>
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a data-toggle="tab" href="#onGoing">En cours</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#completed">Terminées</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="onGoing" class="tab-pane fade in active">
+            {{ render(controller('MPTimeSheetBundle:Mission:onGoing')) }}
+        </div>
+        <div id="completed" class="tab-pane fade">
+            {{ render(controller("MPTimeSheetBundle:Mission:completed")) }}
+        </div>
+    </div>
+
+
+{% endblock %}

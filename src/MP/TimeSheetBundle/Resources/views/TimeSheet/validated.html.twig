@@ -1,0 +1,48 @@
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Jour</th>
+        <th>Collaborateur</th>
+        <th>Mission</th>
+        <th>Commentaire</th>
+        <th>Nombre d'heures</th>
+        <th>Congé</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('timesheet_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.day|date("m/d/Y") }}</td>
+            <td>{{ entity.associate }}</td>
+            <td>{{ entity.mission }}</td>
+            <td>
+                {% if entity.comment %}
+                    {{ entity.comment }}
+                {% else %}
+                    <p class="text-muted">pas de commentaire.</p>
+                {% endif %}
+            </td>
+            <td>{{ entity.hourNumber }}</td>
+            <td>
+                {% if entity.holiday %}
+                    <span style="font-size:1.5em;" class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span style="font-size:1.5em;" class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ path('timesheet_show', { 'id': entity.id }) }}">
+                    <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
+                </a>
+                <a href="{{ path('timesheet_edit', { 'id': entity.id }) }}">
+                    <span style="font-size:1.5em;" class="glyphicon glyphicon-edit"></span>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

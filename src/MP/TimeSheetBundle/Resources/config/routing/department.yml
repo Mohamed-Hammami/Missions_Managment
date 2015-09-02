@@ -1,0 +1,30 @@
+department:
+    path:     /
+    defaults: { _controller: "MPTimeSheetBundle:Department:index" }
+
+department_show:
+    path:     /{id}/show
+    defaults: { _controller: "MPTimeSheetBundle:Department:show" }
+
+department_new:
+    path:     /new
+    defaults: { _controller: "MPTimeSheetBundle:Department:new" }
+
+department_create:
+    path:     /create
+    defaults: { _controller: "MPTimeSheetBundle:Department:create" }
+    methods:  POST
+
+department_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MPTimeSheetBundle:Department:edit" }
+
+department_update:
+    path:     /{id}/update
+    defaults: { _controller: "MPTimeSheetBundle:Department:update" }
+    methods:  [POST, PUT]
+
+department_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MPTimeSheetBundle:Department:delete" }
+    methods:  [POST, DELETE]

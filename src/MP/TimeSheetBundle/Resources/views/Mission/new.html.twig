@@ -1,0 +1,60 @@
+{% extends 'MPTimeSheetBundle::layout.html.twig' %}
+
+{% block title %}
+    Ajout Mission
+{% endblock %}
+
+{% block body -%}
+    <h2>Nouvelle Mission:</h2>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="form-group">
+        {{ form_label(form.startDate) }}
+        {{ form_errors(form.startDate) }}
+        {{ form_widget(form.startDate, {'attr': {'class': 'date'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.endDate) }}
+        {{ form_errors(form.startDate) }}
+        {{ form_widget(form.endDate, {'attr': {'class': 'date'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.hourNum) }}
+        {{ form_errors(form.hourNum) }}
+        {{ form_widget(form.hourNum, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.nature) }}
+        {{ form_widget(form.nature, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.clients) }}
+        {{ form_widget(form.clients, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.signatary) }}
+        {{ form_widget(form.signatary, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.manager) }}
+        {{ form_widget(form.manager, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.chief) }}
+        {{ form_widget(form.chief, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.associates) }}
+        {{ form_widget(form.associates, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.submit) }}
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-default'}}) }}
+        {{ form_widget(form.reset, {'attr': {'class': 'btn btn-default'}}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+    <a style="float:left" href="{{ path('mission') }}">
+        <span class="glyphicon glyphicon-arrow-left"></span> retour à la liste
+    </a>
+{% endblock %}

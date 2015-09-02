@@ -1,0 +1,7 @@
+mp_time_sheet:
+    resource: "@MPTimeSheetBundle/Resources/config/routing.yml"
+    prefix:   TimeSheet/
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

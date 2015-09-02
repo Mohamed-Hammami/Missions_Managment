@@ -1,0 +1,38 @@
+{% extends "::index.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block navigation%}
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="{{ path('timesheet_user') }}">Mes feuilles de Temps</a>
+        </li>
+        <li>
+            <a href="{{ url('associate') }}">Collaborateurs</a>
+        </li>
+        <li>
+            <a href="{{ url('client') }}">Clients</a>
+        </li>
+        <li>
+            <a href="{{ url('mission') }}">Missions</a>
+        </li>
+        <li>
+            <a href="{{ url('timesheet') }}">Feuilles de Temps</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+    {% block timeSheet_body %}
+        <div class="container">
+            <div class="jumbotron">
+                <h2>PLateforme de gestion de mission</h2>
+                <p>
+                    Bonjour Mr {{ app.security.getToken().getUser().name }} {{ app.security.getToken().getUser().surname }}
+                </p>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

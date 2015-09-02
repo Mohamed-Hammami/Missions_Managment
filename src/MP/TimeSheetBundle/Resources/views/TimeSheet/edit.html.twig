@@ -1,0 +1,51 @@
+{% extends is_granted('ROLE_ADMIN')
+? 'MPTimeSheetBundle::layout.html.twig'
+: 'MPTimeSheetBundle::layoutUser.html.twig'
+%}
+
+{% block title %}
+    Modification feuille de temps
+{% endblock %}
+
+{% block body -%}
+    <h2>Modifier feuille de temps:</h2>
+    {{ form_start(edit_form, {'attr': {'class': 'form'}}) }}
+    {{ form_errors(edit_form) }}
+    <div class="form-group">
+        {{ form_label(edit_form.associate) }}
+        {{ form_widget(edit_form.associate, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.mission) }}
+        {{ form_widget(edit_form.mission, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.day) }}
+        {{ form_widget(edit_form.day, {'attr': {'class': 'day'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.hourNumber) }}
+        {{ form_widget(edit_form.hourNumber, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.comment) }}
+        {{ form_widget(edit_form.comment, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.holiday) }}
+        {{ form_widget(edit_form.holiday, {'attr': {'class': 'btn btn-default'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.submit) }}
+        {{ form_widget(edit_form.submit, {'attr': {'class': 'btn btn-default'}}) }}
+        {{ form_widget(edit_form.reset, {'attr': {'class': 'btn btn-default'}}) }}
+    </div>
+
+    {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }}
+
+    <a style="float:left" href="{{ path('timesheet_user') }}">
+        <span class="glyphicon glyphicon-arrow-left"></span> retour à la liste
+    </a>
+{% endblock %}
+

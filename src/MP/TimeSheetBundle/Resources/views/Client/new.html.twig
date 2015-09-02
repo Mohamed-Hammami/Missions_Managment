@@ -1,0 +1,57 @@
+{% extends 'MPTimeSheetBundle::layout.html.twig' %}
+
+{% block title%}
+    Ajout client
+{% endblock %}
+
+{% block body -%}
+    <h2>Nouveau client</h2>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.adresse) }}
+            {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.secteurActivite) }}
+            {{ form_widget(form.secteurActivite, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Contact principal</strong></div>
+            <div class="panel-body">
+                <div style="margin: 10px 50px;">
+                <div class="form-group">
+                    {{ form_label(form.mainContact.name) }}
+                    {{ form_widget(form.mainContact.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.mainContact.surname) }}
+                    {{ form_widget(form.mainContact.surname, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.mainContact.email) }}
+                    {{ form_widget(form.mainContact.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.mainContact.telNum) }}
+                    {{ form_widget(form.mainContact.telNum, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.mainContact.contactPost) }}
+                    {{ form_widget(form.mainContact.contactPost, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                </div>
+            </div>
+        </div>
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-default'}}) }}
+            {{ form_widget(form.reset, {'attr': {'class': 'btn btn-default'}}) }}
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    <a style="float:left" href="{{ path('client') }}">
+        <span class="glyphicon glyphicon-arrow-left"></span> retour à la liste
+    </a>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'MPTimeSheetBundle::layout.html.twig'%}
+
+
+{% block title %}
+    Collaborateurs - {{ parent() }}
+{% endblock %}
+
+{% block timeSheet_body -%}
+    <div class="row">
+        <h2 class="col-md-4">Liste de collaborateurs:</h2>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Poste</th>
+                <th>Dépatement</th>
+                <th>Missions Actives</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('associate_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.surname }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.post }}</td>
+                <td>{{ entity.department.name }}</td>
+                <td>
+                    {% for mission in missions %}
+                        <ul class="list-group">
+                    {% if entity in mission.associates and mission.status == 'En cours' %}
+                        <li class="list-group-item">
+                            <span class="badge">{{ ((mission.realHourNum / mission.hourNum)|round)*100 }}%</span>{{ mission}}
+                        </li>
+                    {% endif %}
+                        </ul>
+                    {% endfor %}
+                </td>
+                <td>
+                   {# <a href="{{ path('associate_show', { 'id': entity.id }) }}">
+                        <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
+                    </a>#}
+                    <a href="{{ path('associate_edit', { 'id': entity.id }) }}">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div style="float: right;">
+        <a href="{{ path('associate_new') }}">
+            <span class="glyphicon glyphicon-plus-sign"></span> nouveau collaborateur
+        </a>
+    </div>
+
+
+    {% endblock %}

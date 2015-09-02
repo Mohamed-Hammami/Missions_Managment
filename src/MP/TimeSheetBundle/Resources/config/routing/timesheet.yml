@@ -1,0 +1,38 @@
+timesheet:
+    path:     /
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:index" }
+
+timesheet_user:
+    path:     /user
+    defaults: { _controller: MPTimeSheetBundle:TimeSheet:indexUser}
+
+timesheet_show:
+    path:     /{id}/show
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:show" }
+
+
+timesheet_new:
+    path:     /new
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:new" }
+
+timesheet_create:
+    path:     /create
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:create" }
+    methods:  POST
+
+timesheet_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:edit" }
+
+timesheet_update:
+    path:     /{id}/update
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:update" }
+    methods:  [POST, PUT]
+
+timesheet_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:delete" }
+
+timesheet_validate:
+    path:     /{id}/validate
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:validate" }

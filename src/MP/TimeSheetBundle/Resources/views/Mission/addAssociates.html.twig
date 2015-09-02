@@ -1,0 +1,25 @@
+{% extends  'MPTimeSheetBundle::layout.html.twig' %}
+
+{% block title%}
+    Ajout Collaborateur
+{% endblock %}
+
+{% block body %}
+    {{ dump(form) }}
+    <h2>Ajout collaborateurs:</h2>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.associates) }}
+        {{ form_widget(form.associates, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.submit) }}
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-default'}}) }}
+        {{ form_widget(form.reset, {'attr': {'class': 'btn btn-default'}}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+    <a style="float:left" href="{{ path('mission') }}">
+        <span class="glyphicon glyphicon-arrow-left"></span> retour à la liste
+    </a>
+{% endblock %}

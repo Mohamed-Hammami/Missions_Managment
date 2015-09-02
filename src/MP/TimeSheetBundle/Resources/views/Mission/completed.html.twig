@@ -1,0 +1,76 @@
+{% for entity in entities %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{ entity }}
+            <span style="float: right">Terminée le {{ entity.realEndDate|date("d/m/Y") }}</span>
+        </div>
+        <div class="panel-body">
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-4 text-left">Date de début: {{ entity.startDate|date("d/m/Y") }}</div>
+                        <div class="col-md-4 text-center">{{ entity.realHourNum }}/{{ entity.hourNum }}</div>
+                        <div class="col-md-4 text-right">Date de fin prevue: {{ entity.endDate|date("d/m/Y") }}</div>
+                    </div>
+                </li>
+                <li class="list-group-item">Client: {{entity.clients}}</li>
+                <li class="list-group-item">Nature: {{ entity.nature }}</li>
+            </ul>
+            {#
+            <table class="table">
+                <thead>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Poste</th>
+                <th>Dépatement</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th></th>
+                {% endif %}
+                </thead>
+                <tbody>
+                {% for associate in entity.associates %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('associate_show', { 'id': associate.id }) }}"
+                                    ><span class="badge">{{ associate.id }}</span>
+                            </a>
+                        </td>
+                        <td>{{ associate.name }}</td>
+                        <td>{{ associate.surname }}</td>
+                        <td>{{ associate.email }}</td>
+                        <td>{{ associate.post}}</td>
+                        <td>{{ associate.department.name }}</td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td>
+                                <a href="{{ path('mission_show', { 'id': associate.id }) }}">
+                                    <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
+                                </a>
+                                <a href="{{ path('mission_associate_remove', { 'id': entity.id, 'asid': associate.id}) }}">
+                                    <span style="font-size:1.5em;" class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            #}
+            <div class="progress">
+                {%  set progress = (entity.realHourNum / entity.hourNum)*100 %}
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ progress }}%; height: 150%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+{% if is_granted('ROLE_ADMIN') %}
+    <div style="float: right;">
+        <a href="{{ path('mission_new') }}">
+            <span class="glyphicon glyphicon-plus-sign"></span> nouvelle mission
+        </a>
+    </div>
+{% endif %}

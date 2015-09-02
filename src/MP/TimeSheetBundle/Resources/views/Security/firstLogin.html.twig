@@ -1,0 +1,54 @@
+{% extends '::index.html.twig' %}
+
+{% block title  %}
+    Première connexion
+{% endblock %}
+
+{% block body -%}
+
+    <h2>Première connexion sur la plateforme de gestion de mission</h2>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.password.first) }}
+        {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.password.second) }}
+        {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.surname) }}
+        {{ form_widget(form.surname, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.department) }}
+        {{ form_widget(form.department, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.post) }}
+        {{ form_widget(form.post, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.submit) }}
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-default'}}) }}
+        {{ form_widget(form.reset, {'attr': {'class': 'btn btn-default'}}) }}
+    </div>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

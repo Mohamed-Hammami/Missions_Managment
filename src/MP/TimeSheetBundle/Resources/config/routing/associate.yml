@@ -1,0 +1,34 @@
+associate:
+    path:     /
+    defaults: { _controller: "MPTimeSheetBundle:Associate:index" }
+
+associate_show:
+    path:     /{id}/show
+    defaults: { _controller: "MPTimeSheetBundle:Associate:show" }
+
+associate_new:
+    path:     /new
+    defaults: { _controller: "MPTimeSheetBundle:Associate:new" }
+
+associate_create:
+    path:     /create
+    defaults: { _controller: "MPTimeSheetBundle:Associate:create" }
+    methods:  POST
+
+associate_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MPTimeSheetBundle:Associate:edit" }
+
+associate_update:
+    path:     /{id}/update
+    defaults: { _controller: "MPTimeSheetBundle:Associate:update" }
+    methods:  [POST, PUT]
+
+associate_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MPTimeSheetBundle:Associate:delete" }
+    methods:  [POST, DELETE]
+
+associate_my_account:
+    path:     /myaccount
+    defaults: { _controller: "MPTimeSheetBundle:Associate:myAccount" }

@@ -1,0 +1,48 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        MP\TimeSheetBundle\Entity\Associate: plaintext
+
+    providers:
+        in_memory:
+            memory:
+                users:
+                    user:  { password: userpass, roles: ['ROLE_USER'] }
+                    admin: { password: adminpass, roles:['ROLE_ADMIN'] }
+        main:
+            entity:
+                class:    MP\TimeSheetBundle\Entity\Associate
+                property: username
+
+    role_hierarchy:
+        ROLE_ADMIN:        ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main_login:
+            pattern:   ^/TimeSheet/login$
+            anonymous: true
+        main:
+            pattern: ^/TimeSheet/
+            anonymous: false
+            provider:  main
+            form_login:
+                login_path: login
+                check_path: login_check
+                default_target_path: /TimeSheet/firstlog
+            logout:
+                path:   logout
+                target: /TimeSheet/login
+
+    access_control:
+            - { path: ^/TimeSheet/client, roles: ROLE_ADMIN }
+            - { path: ^/TimeSheet/department, roles: ROLE_ADMIN }
+            - { path: ^/admin/maincontact, roles: ROLE_ADMIN }

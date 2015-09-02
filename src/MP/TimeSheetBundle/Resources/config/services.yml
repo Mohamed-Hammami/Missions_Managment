@@ -1,0 +1,4 @@
+services:
+#    mp_time_sheet.example:
+#        class: MP\TimeSheetBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

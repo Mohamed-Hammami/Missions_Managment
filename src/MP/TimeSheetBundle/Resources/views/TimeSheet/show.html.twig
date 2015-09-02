@@ -1,0 +1,54 @@
+{% extends is_granted('ROLE_ADMIN')
+? 'MPTimeSheetBundle::layout.html.twig'
+: 'MPTimeSheetBundle::layoutUser.html.twig'
+%}
+
+{% block body -%}
+    <h1>TimeSheet</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Jour</th>
+                <th>Mission</th>
+                <th>Commentaire</th>
+                <th>Nombre d'heures</th>
+                <th>Congé</th>
+                <th></th>
+             </tr>
+        </thead>
+        <tbody>
+            <td>
+                <a href="{{ path('timesheet_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+            </td>
+            <td>{{ entity.day|date("m/d/Y") }}</td>
+            <td>{{ entity.mission }}</td>
+            <td>{% if entity.comment %}
+                    {{ entity.comment }}
+                {% else %}
+                    <p class="text-muted">pas de commentaire.</p>
+                {% endif %}
+            </td>
+            <td>{{ entity.hourNumber }}</td>
+            <td>{% if entity.holiday %}
+                    <span style="font-size:1.5em;" class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span style="font-size:1.5em;" class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+            <td>
+                <a href="{{ path('timesheet_show', { 'id': entity.id }) }}">
+                    <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
+                </a>
+                {% if entity.validated == false %}
+                    <a href="{{ path('timesheet_edit', { 'id': entity.id }) }}">
+                        <span style="font-size:1.5em;" class="glyphicon glyphicon-edit"></span>
+                    </a>
+                {% endif %}
+            </td>
+        </tbody>
+    </table>
+    <a style="float:left" href="{{ path('timesheet_user') }}">
+        <span class="glyphicon glyphicon-arrow-left"></span> retour à la liste
+    </a>
+{% endblock %}

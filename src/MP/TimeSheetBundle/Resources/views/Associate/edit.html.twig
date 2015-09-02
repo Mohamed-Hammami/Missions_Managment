@@ -1,0 +1,43 @@
+{% extends 'MPTimeSheetBundle::layout.html.twig' %}
+
+{% block title  %}
+    Modifier Collaborateur
+{% endblock %}
+
+{% block body -%}
+    <h2>Modifier collaborateur:</h2>
+    {{ form_start(edit_form) }}
+    {{ form_errors(edit_form) }}
+    <div class="form-group">
+        {{ form_label(edit_form.name) }}
+        {{ form_widget(edit_form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.surname) }}
+        {{ form_widget(edit_form.surname, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.email) }}
+        {{ form_widget(edit_form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.department) }}
+        {{ form_widget(edit_form.department, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.post) }}
+        {{ form_widget(edit_form.post, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.submit) }}
+        {{ form_widget(edit_form.submit, {'attr': {'class': 'btn btn-default'}}) }}
+        {{ form_widget(edit_form.reset, {'attr': {'class': 'btn btn-default'}}) }}
+    </div>
+
+    {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }}
+    <a style="float:left" href="{{ path('associate') }}">
+        <span class="glyphicon glyphicon-arrow-left"></span> retour à la liste
+    </a>
+
+{% endblock %}

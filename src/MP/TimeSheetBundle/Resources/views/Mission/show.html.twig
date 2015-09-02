@@ -1,0 +1,42 @@
+{% extends is_granted('ROLE_ADMIN')
+? 'MPTimeSheetBundle::layout.html.twig'
+: 'MPTimeSheetBundle::layoutUser.html.twig'
+%}
+
+{% block body -%}
+    <h1>Mission</h1>
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Startdate</th>
+                <td>{{ entity.startDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Hournum</th>
+                <td>{{ entity.hourNum }}</td>
+            </tr>
+            <tr>
+                <th>Enddate</th>
+                <td>{{ entity.endDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('mission') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('mission_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
