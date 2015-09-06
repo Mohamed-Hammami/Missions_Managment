@@ -30,12 +30,10 @@ class AssociateController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MPTimeSheetBundle:Associate')->findAll();
-        $missions = $em->getRepository('MPTimeSheetBundle:Mission')->findAllAssociates();
+        $entities = $em->getRepository('MPTimeSheetBundle:Associate')->findAllAssociates();
 
         return $this->render('MPTimeSheetBundle:Associate:index.html.twig', array(
             'entities' => $entities,
-            'missions' => $missions,
         ));
     }
     /**

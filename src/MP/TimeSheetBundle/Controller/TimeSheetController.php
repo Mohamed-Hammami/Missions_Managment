@@ -96,7 +96,14 @@ class TimeSheetController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setValidated(false);
+            $associate = $entity->getAssociate();
+
+            if ($associate->getPost() == 'signataire' or $associate->getPost() == 'manager')
+                $entity->setValidated(true);
+            else
+                $entity->setValidated(false);
+
+
             $em->persist($entity);
 
             $em->flush();

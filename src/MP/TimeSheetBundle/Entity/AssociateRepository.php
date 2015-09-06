@@ -12,6 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class AssociateRepository extends EntityRepository
 {
+    // Associate joined with AssociateMission and Mission Tables
+
+    public function findAllAssociates()
+    {
+        $result = $this->createQueryBuilder('a')
+            ->select('a')
+            ->leftJoin('a.mission', 'am')
+            ->where('am.status = :stat')
+            ->leftJoin('am.mission', 'm')
+            ->setParameter(':stat', 'en cours')
+            ->addSelect('am')
+            ->addSelect('m')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
 
     // find mission-associate from Mission id
     public function findAssociates($id)

@@ -32,20 +32,18 @@
                 <td>{{ entity.post }}</td>
                 <td>{{ entity.department.name }}</td>
                 <td>
-                    {% for mission in missions %}
-                        <ul class="list-group">
-                    {% if entity in mission.associates and mission.status == 'En cours' %}
-                        <li class="list-group-item">
-                            <span class="badge">{{ ((mission.realHourNum / mission.hourNum)|round)*100 }}%</span>{{ mission}}
-                        </li>
-                    {% endif %}
-                        </ul>
+                    {% for assocM in entity.mission %}
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                   {{ assocM.mission }} <span class="badge">{{ ((assocM.mission.realHourNum / assocM.mission.hourNum)|round)*100 }}</span>
+                                </li>
+                            </ul>
                     {% endfor %}
                 </td>
                 <td>
-                   {# <a href="{{ path('associate_show', { 'id': entity.id }) }}">
+                    <a href="{{ path('associate_show', { 'id': entity.id }) }}">
                         <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
-                    </a>#}
+                    </a>
                     <a href="{{ path('associate_edit', { 'id': entity.id }) }}">
                         <span class="glyphicon glyphicon-edit"></span>
                     </a>

@@ -28,7 +28,7 @@ class TimeSheet
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="day", type="datetime", unique=true)
+     * @ORM\Column(name="day", type="datetime")
      *
      * @Assert\Range(
      *      min = " now -2 days",
