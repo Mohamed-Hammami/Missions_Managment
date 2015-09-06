@@ -3,6 +3,7 @@
 namespace MP\TimeSheetBundle\Controller;
 
 use MP\TimeSheetBundle\Entity\Associate;
+use MP\TimeSheetBundle\Entity\AssociateMission;
 use MP\TimeSheetBundle\Entity\AssociateRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -310,7 +311,7 @@ class MissionController extends Controller
                     'label' => 'Chef de mission:',
                     'class' => 'MPTimeSheetBundle:Associate',
                     'query_builder' => function(AssociateRepository $repo){
-                        return $repo->findAllChiefs();
+                        return $repo->findNoMissionChiefs();
                     }
                 ))
             ->add('associates', 'entity', array(
@@ -336,6 +337,8 @@ class MissionController extends Controller
 
     private function fillEntity(Form $form, Mission $entity)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $array = $form->getData();
 
         $entity->setStartDate($array['startDate']);
@@ -343,12 +346,30 @@ class MissionController extends Controller
         $entity->setEndDate($array['endDate']);
         $entity->setNature($array['nature']);
         $entity->setClients($array['clients']);
-        $entity->addAssociate($array['signatary']);
-        $entity->addAssociate($array['manager']);
-        $entity->addAssociate($array['chief']);
+
+        $sigMission = new AssociateMission();
+        $sigMission->setMission($entity);
+        $sigMission->setAssociate($array['signatary']);
+        $em->persist($sigMission);
+
+        $manMission = new AssociateMission();
+        $manMission->setMission($entity);
+        $manMission->setAssociate($array['manager']);
+        $em->persist($manMission);
+
+        $chMission = new AssociateMission();
+        $chMission->setMission($entity);
+        $chMission->setAssociate($array['chief']);
+        $em->persist($chMission);
+
         foreach($array['associates'] as $associate){
-            $entity->addAssociate($associate);
+            $assocMission = new AssociateMission();
+            $assocMission->setMission($entity);
+            $assocMission->setAssociate($associate);
+            $em->persist($assocMission);
         }
+
+        $em->flush();
 
     }
 
@@ -370,13 +391,13 @@ class MissionController extends Controller
             throw $this->createNotFoundException('Unable to find Mission entity.');
         }
 
-        $entity->setStatus('Terminée');
+        $entity->setStatus('terminée');
         $entity->setRealEndDate(new \DateTime());
 
-        $associates = $em->getRepository('MPTimeSheetBundle:Associate')->findAssociates($id);
+        $associateMission = $entity->getAssociate();
 
-        foreach($associates as $associate){
-            $entity->removeAssociate($associate);
+        foreach($associateMission as $assoc){
+            $assoc->setStatus('terminée');
         }
 
         $em->flush();
@@ -404,13 +425,13 @@ class MissionController extends Controller
             throw $this->createNotFoundException('Unable to find Mission entity.');
         }
 
-        $associate = $em->getRepository('MPTimeSheetBundle:Associate')->find($asid);
+        $associateMission = $em->getRepository('MPTimeSheetBundle:AssociateMission')->find($asid);
 
-        if (!$associate) {
-            throw $this->createNotFoundException('Unable to find Mission entity.');
+        if (!$associateMission) {
+            throw $this->createNotFoundException('Unable to find AssociateMission entity.');
         }
 
-        $mission->removeAssociate($associate);
+        $associateMission->setStatus("terminée");
 
         $em->flush();
 
@@ -444,11 +465,11 @@ class MissionController extends Controller
     private function creteAddAssociateForm()
     {
         $form = $this->createFormBuilder()
-            ->add('associates', 'entity', array(
+            ->add('associate', 'entity', array(
                     'label' => 'Collaborateurs:',
                     'class' => 'MPTimeSheetBundle:Associate',
                     'query_builder' => function(AssociateRepository $repo){
-                        return $repo->findNoMissions();
+                        return $repo->findNoMissionAssociates();
                     },
                     'multiple' => true,
                 ))
@@ -489,9 +510,11 @@ class MissionController extends Controller
 
             $array = $form->getData();
 
-            foreach($array['associates'] as $associates)
+            foreach($array['associates'] as $associate)
             {
-                $mission->addAssociate($associates);
+                $associateMission = new AssociateMission();
+                $associateMission->setAssociate($associate);
+                $associateMission->setMission($mission);
             }
 
             $em->flush();

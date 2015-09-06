@@ -1,8 +1,6 @@
 {% for entity in entities %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            {{ dump(entity) }}
-            {{ entity }}
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('mission_add_associates', {'id': entity.id}) }}" style="float: right;">
                     <span class="glyphicon glyphicon-user"></span>
@@ -13,7 +11,6 @@
             {% endif %}
         </div>
         <div class="panel-body">
-
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="row">
@@ -27,35 +24,30 @@
             </ul>
             <table class="table">
                 <thead>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Email</th>
                 <th>Poste</th>
-                <th>Dépatement</th>
+                <th>Heures</th>
                 {% if is_granted('ROLE_ADMIN') %}
                     <th></th>
                 {% endif %}
                 </thead>
                 <tbody>
-                {% for entity in entity.associate %}
+                {% for assoc in entity.associate %}
+                    {{ dump(assoc) }}
                     <tr>
-                        <td>
-                            <a href="{{ path('associate_show', { 'id': entity.associate.id }) }}"
-                                    ><span class="badge">{{ entity.associate.id }}</span>
-                            </a>
-                        </td>
-                        <td>{{ entity.associate.name }}</td>
-                        <td>{{ entity.associate.surname }}</td>
-                        <td>{{ entity.associate.email }}</td>
-                        <td>{{ entity.associate.post}}</td>
-                        <td>{{ entity.associate.department.name }}</td>
+                        <td>{{ assoc.associate.name }}</td>
+                        <td>{{ assoc.associate.surname }}</td>
+                        <td>{{ assoc.associate.email }}</td>
+                        <td>{{ assoc.associate.post}}</td>
+                        <td>{{ assoc.hourNum }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
-                                <a href="{{ path('associate_show', { 'id': entity.associate.id }) }}">
+                                <a href="{{ path('associate_show', { 'id': assoc.associate.id }) }}">
                                     <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
                                 </a>
-                                <a href="{{ path('mission_associate_remove', { 'id': entity.id, 'asid': entity.associate.id}) }}">
+                                <a href="{{ path('mission_associate_remove', { 'id': entity.id, 'asid': assoc.id}) }}">
                                     <span style="font-size:1.5em;" class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>

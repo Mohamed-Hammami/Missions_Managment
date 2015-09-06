@@ -18,7 +18,7 @@ class AssociateRepository extends EntityRepository
     {
         $result = $this->createQueryBuilder('a')
             ->select('a')
-            ->innerJoin('a.missions', 'm')
+            ->innerJoin('a.mission', 'm')
             ->where('m.id = :id')
             ->setParameter(':id', $id)
             ->getQuery()
@@ -43,7 +43,7 @@ class AssociateRepository extends EntityRepository
     {
         $result = $this->createQueryBuilder('a')
             ->select('DISTINCT a')
-            ->leftJoin('a.missions', 'm')
+            ->leftJoin('a.mission', 'm')
             ->where('m.status != :st')
             ->orWhere('m.id is NULL')
             ->andWhere('a.post = :collab')
@@ -53,11 +53,11 @@ class AssociateRepository extends EntityRepository
         return $result;
     }
 
-    public function findAllChiefs()
+    public function findNoMissionChiefs()
     {
         $result = $this->createQueryBuilder('a')
             ->select('a')
-            ->leftJoin('a.missions', 'm')
+            ->leftJoin('a.mission', 'm')
             ->where('m.status != :st')
             ->orWhere('m.id is NULL')
             ->andWhere('a.post = :chief')
@@ -91,7 +91,7 @@ class AssociateRepository extends EntityRepository
     {
         $result = $this->createQueryBuilder('a')
             ->select('a')
-            ->leftJoin('a.missions', 'm')
+            ->leftJoin('a.mission', 'm')
             ->Where('m.id is NULL');
 
 

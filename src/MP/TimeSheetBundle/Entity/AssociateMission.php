@@ -37,7 +37,7 @@ class AssociateMission
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="MP\TimeSheetBundle\Entity\Mission", inversedBy="associate")
+     * @ORM\ManyToOne(targetEntity="MP\TimeSheetBundle\Entity\Mission", inversedBy="associate", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      *
      */
@@ -45,11 +45,17 @@ class AssociateMission
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="MP\TimeSheetBundle\Entity\Associate", inversedBy="mission")
+     * @ORM\ManyToOne(targetEntity="MP\TimeSheetBundle\Entity\Associate", inversedBy="mission", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      *
      */
     private $associate;
+
+    public function __construct()
+    {
+        $this->setStatus("en cours");
+        $this->setHourNum(0);
+    }
 
     /**
      * Get id
@@ -113,7 +119,7 @@ class AssociateMission
      * @param \MP\TimeSheetBundle\Entity\Mission $mission
      * @return AssociateMission
      */
-    public function setMission(\MP\TimeSheetBundle\Entity\Mission $mission)
+    public function setMission(Mission $mission)
     {
         $this->mission = $mission;
 
@@ -136,7 +142,7 @@ class AssociateMission
      * @param \MP\TimeSheetBundle\Entity\Associate $associate
      * @return AssociateMission
      */
-    public function setAssociate(\MP\TimeSheetBundle\Entity\Associate $associate)
+    public function setAssociate(Associate $associate)
     {
         $this->associate = $associate;
 

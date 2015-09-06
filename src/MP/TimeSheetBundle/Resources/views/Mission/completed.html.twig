@@ -17,7 +17,6 @@
                 <li class="list-group-item">Client: {{entity.clients}}</li>
                 <li class="list-group-item">Nature: {{ entity.nature }}</li>
             </ul>
-            {#
             <table class="table">
                 <thead>
                 <th>Id</th>
@@ -31,24 +30,24 @@
                 {% endif %}
                 </thead>
                 <tbody>
-                {% for associate in entity.associates %}
+                {% for assoc in entity.associate %}
                     <tr>
                         <td>
-                            <a href="{{ path('associate_show', { 'id': associate.id }) }}"
-                                    ><span class="badge">{{ associate.id }}</span>
+                            <a href="{{ path('associate_show', { 'id': assoc.associate.id }) }}"
+                                    ><span class="badge">{{ assoc.associate.id }}</span>
                             </a>
                         </td>
-                        <td>{{ associate.name }}</td>
-                        <td>{{ associate.surname }}</td>
-                        <td>{{ associate.email }}</td>
-                        <td>{{ associate.post}}</td>
-                        <td>{{ associate.department.name }}</td>
+                        <td>{{ assoc.associate.name }}</td>
+                        <td>{{ assoc.associate.surname }}</td>
+                        <td>{{ assoc.associate.email }}</td>
+                        <td>{{ assoc.associate.post}}</td>
+                        <td>{{ assoc.associate.department.name }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
-                                <a href="{{ path('mission_show', { 'id': associate.id }) }}">
+                                <a href="{{ path('mission_show', { 'id': assoc.associate.id }) }}">
                                     <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
                                 </a>
-                                <a href="{{ path('mission_associate_remove', { 'id': entity.id, 'asid': associate.id}) }}">
+                                <a href="{{ path('mission_associate_remove', { 'id': entity.id, 'asid': assoc.associate.id}) }}">
                                     <span style="font-size:1.5em;" class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>
@@ -57,7 +56,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-            #}
             <div class="progress">
                 {%  set progress = (entity.realHourNum / entity.hourNum)*100 %}
                 <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ progress }}%; height: 150%">
