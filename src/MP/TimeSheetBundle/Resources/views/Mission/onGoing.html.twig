@@ -1,6 +1,7 @@
 {% for entity in entities %}
     <div class="panel panel-default">
         <div class="panel-heading">
+            {{ entity }}
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('mission_add_associates', {'id': entity.id}) }}" style="float: right;">
                     <span class="glyphicon glyphicon-user"></span>
@@ -35,23 +36,28 @@
                 </thead>
                 <tbody>
                 {% for assoc in entity.associate %}
-                    {{ dump(assoc) }}
-                    <tr>
+                    <tr {% if assoc.status == "terminée" %} class="text-muted" {% endif %}>
                         <td>{{ assoc.associate.name }}</td>
                         <td>{{ assoc.associate.surname }}</td>
                         <td>{{ assoc.associate.email }}</td>
                         <td>{{ assoc.associate.post}}</td>
                         <td>{{ assoc.hourNum }}</td>
-                        {% if is_granted('ROLE_ADMIN') %}
                             <td>
+                                {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('associate_show', { 'id': assoc.associate.id }) }}">
                                     <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
                                 </a>
+                                {% endif %}
+                                {% if is_granted('ROLE_ADMIN') and assoc.status == 'en cours' %}
                                 <a href="{{ path('mission_associate_remove', { 'id': entity.id, 'asid': assoc.id}) }}">
                                     <span style="font-size:1.5em;" class="glyphicon glyphicon-remove"></span>
                                 </a>
+                                {% elseif is_granted('ROLE_ADMIN') and assoc.status == 'terminée' %}
+                                <a href="#">
+                                    <span style="font-size:1.5em;" class="glyphicon glyphicon-plus"></span>
+                                </a>
+                                {% endif %}
                             </td>
-                        {% endif %}
                     </tr>
                 {% endfor %}
                 </tbody>

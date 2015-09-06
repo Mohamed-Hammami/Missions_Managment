@@ -48,7 +48,7 @@ class AssociateRepository extends EntityRepository
             ->orWhere('m.id is NULL')
             ->andWhere('a.post = :collab')
             ->setParameter(':collab', 'collaborateur')
-            ->setParameter(':st', 'En cours');
+            ->setParameter(':st', 'en cours');
 
         return $result;
     }
@@ -62,7 +62,7 @@ class AssociateRepository extends EntityRepository
             ->orWhere('m.id is NULL')
             ->andWhere('a.post = :chief')
             ->setParameter(':chief', 'chef de mission')
-            ->setParameter(':st', 'En cours');
+            ->setParameter(':st', 'en cours');
 
         return $result;
     }

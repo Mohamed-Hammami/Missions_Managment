@@ -308,18 +308,22 @@ class TimeSheetController extends Controller
         }
 
         $mission = $timeSheet->getMission();
+        $associate = $timeSheet->getAssociate();
+        $associateMission = $em->getRepository('MPTimeSheetBundle:AssociateMission')
+            ->findByAssociateMission($associate->getId(), $mission->getId());
+
+        if (!$associateMission){
+            throw $this->createNotFoundException('Unable to find AssociateMission entity.');
+        }
 
         $mission->setRealHourNum( ($mission->getRealHourNum() + $timeSheet->getHourNumber()));
         $timeSheet->setValidated(true);
+
+        $associateMission->setHourNum( ($associateMission->getHourNum() + $timeSheet->getHourNumber()));
 
         $em->flush();
 
         return $this->redirect($this->generateUrl('timesheet'));
     }
 
-    private function checkTimeSheet(TimeSheet $timeSheet)
-    {
-
-
-    }
 }

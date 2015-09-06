@@ -19,12 +19,11 @@
             </ul>
             <table class="table">
                 <thead>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Email</th>
                 <th>Poste</th>
-                <th>Dépatement</th>
+                <th>Heures</th>
                 {% if is_granted('ROLE_ADMIN') %}
                     <th></th>
                 {% endif %}
@@ -32,23 +31,15 @@
                 <tbody>
                 {% for assoc in entity.associate %}
                     <tr>
-                        <td>
-                            <a href="{{ path('associate_show', { 'id': assoc.associate.id }) }}"
-                                    ><span class="badge">{{ assoc.associate.id }}</span>
-                            </a>
-                        </td>
                         <td>{{ assoc.associate.name }}</td>
                         <td>{{ assoc.associate.surname }}</td>
                         <td>{{ assoc.associate.email }}</td>
                         <td>{{ assoc.associate.post}}</td>
-                        <td>{{ assoc.associate.department.name }}</td>
+                        <td>{{ assoc.hourNum }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
                                 <a href="{{ path('mission_show', { 'id': assoc.associate.id }) }}">
                                     <span style="font-size:1.5em;" class="glyphicon glyphicon-user"></span>
-                                </a>
-                                <a href="{{ path('mission_associate_remove', { 'id': entity.id, 'asid': assoc.associate.id}) }}">
-                                    <span style="font-size:1.5em;" class="glyphicon glyphicon-remove"></span>
                                 </a>
                             </td>
                         {% endif %}

@@ -151,7 +151,7 @@ class Mission
         $this->setRealHourNum(0);
         $this->setStartDate(new \DateTime());
         $this->setEndDate(new \DateTime());
-        $this->setStatus('En cours');
+        $this->setStatus('en cours');
     }
 
     /**

@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class AssociateMissionRepository extends EntityRepository
 {
+    public function findByAssociateMission($aid, $mid)
+    {
+        $result = $this->createQueryBuilder('am')
+            ->where('am.associate = :aid')
+            ->andWhere('am.mission = :mid')
+            ->setParameter(':aid', $aid)
+            ->setParameter(':mid', $mid)
+            ->getQuery()
+            ->getSingleResult();
+
+        return $result;
+    }
 }

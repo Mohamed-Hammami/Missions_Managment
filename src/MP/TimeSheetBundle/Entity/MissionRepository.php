@@ -34,10 +34,10 @@ class MissionRepository extends EntityRepository
     {
         $result = $this->createQueryBuilder('m')
             ->select('m')
-            ->leftJoin('m.associate', 'a')
-            ->where('a.id = :id')
-            ->andWhere('m.status = :stat')
-            ->setParameter(':stat', 'En cours')
+            ->leftJoin('m.associate', 'am')
+            ->where('am.associate = :id')
+            ->andWhere('am.status = :stat')
+            ->setParameter(':stat', 'en cours')
             ->setParameter(':id', $id);
 
         return $result;
@@ -48,7 +48,7 @@ class MissionRepository extends EntityRepository
         $result = $this->createQueryBuilder('m')
             ->select('m')
             ->where('m.status = :stat')
-            ->setParameter(':stat', 'En cours')
+            ->setParameter(':stat', 'en cours')
             ->leftJoin('m.associate', 'a')
             ->leftJoin('m.clients', 'c')
             ->addSelect('c')
