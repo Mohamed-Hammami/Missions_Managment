@@ -99,10 +99,7 @@ class TimeSheetController extends Controller
             $associate = $entity->getAssociate();
 
             if ($associate->getPost() == 'signataire' or $associate->getPost() == 'manager')
-                $entity->setValidated(true);
-            else
-                $entity->setValidated(false);
-
+                $this->validateTimeSheet($entity);
 
             $em->persist($entity);
 
@@ -314,6 +311,17 @@ class TimeSheetController extends Controller
             throw $this->createNotFoundException('Unable to find TimeSheet entity.');
         }
 
+        $this->validateTimeSheet($timeSheet);
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('timesheet'));
+    }
+
+    private function validateTimeSheet($timeSheet)
+    {
+        $em = $this->getDoctrine()->getManager();
+
         $mission = $timeSheet->getMission();
         $associate = $timeSheet->getAssociate();
         $associateMission = $em->getRepository('MPTimeSheetBundle:AssociateMission')
@@ -327,10 +335,6 @@ class TimeSheetController extends Controller
         $timeSheet->setValidated(true);
 
         $associateMission->setHourNum( ($associateMission->getHourNum() + $timeSheet->getHourNumber()));
-
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('timesheet'));
     }
 
 }

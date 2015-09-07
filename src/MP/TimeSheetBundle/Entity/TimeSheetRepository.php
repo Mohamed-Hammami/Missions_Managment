@@ -53,5 +53,19 @@ class TimeSheetRepository extends EntityRepository
         return $result;
     }
 
+    public function findTimeSheets($startDate, $endDate)
+    {
+        $result = $this->createQueryBuilder('t')
+            ->select('t')
+            ->where('t.day <= :endDate')
+            ->andWhere('t.day >= :startDate')
+            ->setParameter(':startDate', $startDate)
+            ->setParameter(':endDate', $endDate)
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
 }
 
