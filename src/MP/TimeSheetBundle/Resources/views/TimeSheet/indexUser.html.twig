@@ -25,6 +25,7 @@
         </thead>
         <tbody>
         {% for entity in entities %}
+            {{ dump(entity) }}
             <tr>
                 <td><a href="{{ path('timesheet_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.day|date("m/d/Y") }}</td>

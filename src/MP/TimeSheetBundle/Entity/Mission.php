@@ -148,9 +148,12 @@ class Mission
      */
     public function __construct()
     {
+        $currentDate = new \DateTime();
+        $currentDate->setTime(0, 0);
+
         $this->setRealHourNum(0);
-        $this->setStartDate(new \DateTime());
-        $this->setEndDate(new \DateTime());
+        $this->setStartDate($currentDate);
+        $this->setEndDate($currentDate);
         $this->setStatus('en cours');
     }
 

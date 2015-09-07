@@ -1,0 +1,31 @@
+{% extends is_granted('ROLE_ADMIN')
+? 'MPTimeSheetBundle::layout.html.twig'
+: 'MPTimeSheetBundle::layoutUser.html.twig'
+%}
+
+
+{% block title %}
+    Mes Feuilles de temps - {{ parent() }}
+{% endblock %}
+
+{% block timeSheet_body -%}
+    <div class="panel-group">
+        {{ dump(week) }}
+        {% for day in week %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ day.weekDay }}
+                            {{ day.day|date('d') }}
+                            {{ day.month }}
+                        </div>
+                        <div class="col-sm-4">.col-sm-4</div>
+                        <div class="col-sm-4">.col-sm-4</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

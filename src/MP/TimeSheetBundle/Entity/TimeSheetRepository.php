@@ -53,14 +53,25 @@ class TimeSheetRepository extends EntityRepository
         return $result;
     }
 
-    public function findTimeSheets($startDate, $endDate)
+    /**
+     * Select TimeSheets Between two dates
+     */
+
+    public function findTimeSheets($startDate, $endDate, $id)
     {
         $result = $this->createQueryBuilder('t')
             ->select('t')
-            ->where('t.day <= :endDate')
+            ->leftJoin('t.associate', 'a')
+            ->leftJoin('t.mission', 'm')
+            ->where('m.status = :stat')
+            ->setParameter(':stat', 'en cours')
+            ->andwhere('a.id = :id')
+            ->setParameter(':id', $id)
+            ->andwhere('t.day <= :endDate')
+            ->setParameter(':endDate', $endDate, \Doctrine\DBAL\Types\Type::DATETIME)
             ->andWhere('t.day >= :startDate')
-            ->setParameter(':startDate', $startDate)
-            ->setParameter(':endDate', $endDate)
+            ->setParameter(':startDate', $startDate, \Doctrine\DBAL\Types\Type::DATETIME)
+            ->orderBy('t.day')
             ->getQuery()
             ->getResult();
 

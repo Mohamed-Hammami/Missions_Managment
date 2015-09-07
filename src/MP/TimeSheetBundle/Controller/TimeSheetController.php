@@ -2,6 +2,7 @@
 
 namespace MP\TimeSheetBundle\Controller;
 
+use MP\TimeSheetBundle\Utils\TimeSheetDay;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -82,6 +83,39 @@ class TimeSheetController extends Controller
                 'entities' => $entities,
             ));
 
+    }
+
+    /**
+     * List TimeSheets for user in pages
+     *
+     */
+    public function indexPageAction($page)
+    {
+        $security = $this->get('security.context');
+        $entity = $security->getToken()->getUser();
+        $id = $entity->getId();
+
+        $em = $this->getDoctrine()->getManager();
+
+        if( 3-7*($page-1) > 0 )
+            $sign = '+';
+        else
+            $sign = '';
+
+        $startDays = (4-7*$page).' days';
+        $endDays   = $sign.(3-7*($page-1)).' days';
+        $startDate = date_modify(new \DateTime(), $startDays)->setTime(0, 0);
+        $endDate   = date_modify(new \DateTime(), $endDays)->setTime(0, 0);
+
+        $timeSheets = $em->getRepository('MPTimeSheetBundle:TimeSheet')->findTimeSheets($startDate, $endDate, $id);
+
+        $week = $this->generateWeek($startDate, $endDate, $timeSheets);
+        $endDate   = date_modify($endDate, '-1 day');
+
+        return $this->render('MPTimeSheetBundle:TimeSheet:indexPage.html.twig', array(
+                'tm' => $timeSheets,
+                'week' => $week,
+            ));
     }
 
     /**
@@ -335,6 +369,31 @@ class TimeSheetController extends Controller
         $timeSheet->setValidated(true);
 
         $associateMission->setHourNum( ($associateMission->getHourNum() + $timeSheet->getHourNumber()));
+    }
+
+    private function generateWeek($startDate, $endDate, $timeSheets)
+    {
+        $endDate   = date_modify($endDate, '+1 day');
+
+        $interval = \DateInterval::createFromDateString('1 day');
+        $period = new \DatePeriod($startDate, $interval, $endDate);
+
+        $week = array();
+
+        foreach( $period as $dt)
+        {
+            $tmDay = new TimeSheetDay();
+            $tmDay->setDay($dt);
+            foreach( $timeSheets as $tm)
+            {
+                if( $tm->getDay() == $tmDay->getDay())
+                    $tmDay->setTimeSheet($tm);
+            }
+
+            array_push($week, $tmDay);
+        }
+
+        return $week;
     }
 
 }

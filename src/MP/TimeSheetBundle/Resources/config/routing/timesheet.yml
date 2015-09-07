@@ -6,6 +6,10 @@ timesheet_user:
     path:     /user
     defaults: { _controller: MPTimeSheetBundle:TimeSheet:indexUser}
 
+timesheet_page:
+    path:     /{page}/user
+    defaults: { _controller: MPTimeSheetBundle:TimeSheet:indexPage}
+
 timesheet_show:
     path:     /{id}/show
     defaults: { _controller: "MPTimeSheetBundle:TimeSheet:show" }

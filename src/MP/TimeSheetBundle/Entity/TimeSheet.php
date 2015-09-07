@@ -255,8 +255,11 @@ class TimeSheet
 
     function __construct()
     {
+        $currentDate = new \DateTime();
+        $currentDate->setTime(0, 0);
+
         $this->setValidated(false);
         $this->setComment('');
-        $this->setDay(new \DateTime());
+        $this->setDay($currentDate);
     }
 }
