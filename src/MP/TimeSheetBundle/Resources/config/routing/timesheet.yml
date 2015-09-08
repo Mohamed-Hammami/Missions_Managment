@@ -8,7 +8,7 @@ timesheet_user:
 
 timesheet_page:
     path:     /{page}/user
-    defaults: { _controller: MPTimeSheetBundle:TimeSheet:indexPage}
+    defaults: { _controller: MPTimeSheetBundle:TimeSheet:indexPage, page:1}
 
 timesheet_show:
     path:     /{id}/show
@@ -16,12 +16,12 @@ timesheet_show:
 
 
 timesheet_new:
-    path:     /new
-    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:new" }
+    path:     /{id}/new
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:new", id: 0 }
 
 timesheet_create:
-    path:     /create
-    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:create" }
+    path:     /{id}/create
+    defaults: { _controller: "MPTimeSheetBundle:TimeSheet:create", id: 0 }
     methods:  POST
 
 timesheet_edit:

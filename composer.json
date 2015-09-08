@@ -22,7 +22,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "dev-master",
         "twitter/bootstrap": "3.*",
-        "components/jquery": "2.*"
+        "components/jquery": "2.*",
+        "knplabs/knp-paginator-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

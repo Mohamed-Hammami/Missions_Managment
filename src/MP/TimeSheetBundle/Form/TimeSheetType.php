@@ -17,11 +17,22 @@ class TimeSheetType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $date = new \DateTime();
+        $date->setTime(0, 0);
+
+        if( $options['day'] == 1 )
+            date_modify($date, '-1 day');
+        elseif( $options['day'] == 2)
+        {
+            date_modify($date, '-2 days');
+        }
+
         $builder
             ->add('day', 'date', array(
                     'label' => 'Jour:',
-                    'data' => new \DateTime(),
-                    'read_only' => true,
+                    'data' => $date,
+                    'disabled' => true,
                 ))
             ->add('hourNumber', 'number', array(
                     'label' => "Nomre d'heures travaillées:",
@@ -67,6 +78,7 @@ class TimeSheetType extends AbstractType
             'data_class' => 'MP\TimeSheetBundle\Entity\TimeSheet',
             'associateId' => '',
             'admin' => false,
+            'day' => 0,
         ));
     }
 

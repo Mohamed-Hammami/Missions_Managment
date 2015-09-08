@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block body -%}
-    <h2>Nouvelle feuille de temps:</h2>
     {{ form_start(form, {'attr': {'class': 'form'}}) }}
     {{ form_errors(form) }}
     <div class="form-group">
@@ -45,8 +44,8 @@
     {{ form_rest(form) }}
     {{ form_end(form) }}
 
-    <a style="float:left" href="{{ path('timesheet_user') }}">
-        <span class="glyphicon glyphicon-arrow-left"></span> retour à la liste
+    <a style="float:left" href="{{ path('timesheet_page') }}">
+        <span class="glyphicon glyphicon-arrow-left"></span> retour
     </a>
 
 {% endblock %}

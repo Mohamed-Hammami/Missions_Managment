@@ -23,10 +23,51 @@ class TimeSheetDay
      * @var string
      */
     private $weekDay;
+
+    /**
+     * @return boolean
+     */
+    public function getCreatable()
+    {
+        return $this->creatable;
+    }
+
+    /**
+     * @param boolean $creatable
+     */
+    public function setCreatable($creatable)
+    {
+        $this->creatable = $creatable;
+    }
     /**
      * @var string
      */
     private $month;
+
+    /**
+     * @return int
+     */
+    public function getDiffId()
+    {
+        return $this->diffId;
+    }
+
+    /**
+     * @param int $diffId
+     */
+    public function setDiffId($diffId)
+    {
+        $this->diffId = $diffId;
+    }
+
+    /**
+     * @var int
+     */
+    private $diffId;
+    /**
+     * @var boolean
+     */
+    private $creatable;
 
     /**
      * @return string
@@ -160,6 +201,11 @@ class TimeSheetDay
     public function setTimeSheet($timeSheet)
     {
         $this->timeSheet = $timeSheet;
+    }
+
+    public function __construct()
+    {
+        $this->setCreatable(false);
     }
 
 } 

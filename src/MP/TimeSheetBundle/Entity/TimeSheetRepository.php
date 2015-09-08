@@ -78,5 +78,21 @@ class TimeSheetRepository extends EntityRepository
         return $result;
     }
 
+    public function findManagerTimeSheets($id)
+    {
+        $result = $this->createQueryBuilder('t')
+            ->select('t')
+            ->leftJoin('t.mission', 'm')
+            ->leftJoin('m.associate', 'ma')
+            ->leftJoin('ma.associate', 'a')
+            ->where('a.id = :id')
+            ->setParameter(':id', $id)
+            ->andWhere('t.validated = false')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
+
 }
 

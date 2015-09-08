@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
     {% endstylesheets %}
 
+    {% block style %}
     <style>
 
         span.glyphicon {
@@ -27,7 +28,26 @@
             width: 80%;
         }
 
+        .date {
+            font-family: 'Trebuchet MS', Helvetica, sans-serif;
+            font-size: 20px;
+            color: midnightblue;
+            font-weight: bold;
+        }
+
+        .tspanel {
+            font-family: 'Trebuchet MS', Helvetica, sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .pageControl{
+            margin: 25px;
+            font-size: 1.6em;
+            text-align: center;
+        }
     </style>
+    {% endblock %}
 </head>
 
 <body>

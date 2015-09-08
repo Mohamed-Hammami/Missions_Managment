@@ -66,6 +66,30 @@ class TimeSheetController extends Controller
     }
 
     /**
+     * List Non validated TimeSheets for missions by manager
+     */
+    public function indexManagerTimeSheets()
+    {
+        $security = $this->get('security.context');
+
+        if(!$security->isGranted('ROLE_ADMIN')){
+            throw new AccessDeniedException('Accès limité aux administrateurs!');
+        }
+        ;
+        $user = $security->getToken()->getUser();
+
+        if( $user->getPost('manager'))
+        {
+            $em = $this->getDoctrine()->getManager();
+            $entities = $em->getRepository('MPTimeSheetBundle:TimeSheet')->findManagerTimeSheets($user->getId());
+            return $this->render('MPTimeSheetBundle:TimeSheet:index.html.twig', array(
+                    'entities' => $entities,
+                ));
+        }
+
+    }
+
+    /**
      * Listed TimeSheets for user
      *
      */
@@ -102,6 +126,9 @@ class TimeSheetController extends Controller
         else
             $sign = '';
 
+        $currentDate = new \DateTime();
+        $currentDate->setTime(0, 0);
+
         $startDays = (4-7*$page).' days';
         $endDays   = $sign.(3-7*($page-1)).' days';
         $startDate = date_modify(new \DateTime(), $startDays)->setTime(0, 0);
@@ -113,8 +140,9 @@ class TimeSheetController extends Controller
         $endDate   = date_modify($endDate, '-1 day');
 
         return $this->render('MPTimeSheetBundle:TimeSheet:indexPage.html.twig', array(
-                'tm' => $timeSheets,
+                'today' => $currentDate,
                 'week' => $week,
+                'page' => $page,
             ));
     }
 
@@ -122,10 +150,10 @@ class TimeSheetController extends Controller
      * Creates a new TimeSheet entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id)
     {
         $entity = new TimeSheet();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, array('day' => $id));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -139,7 +167,7 @@ class TimeSheetController extends Controller
 
             $em->flush();
 
-            return $this->redirect($this->generateUrl('timesheet_show', array('id' => $entity->getId())));
+            return $this->redirectToRoute('timesheet_page');
         }
 
         return $this->render('MPTimeSheetBundle:TimeSheet:new.html.twig', array(
@@ -155,15 +183,16 @@ class TimeSheetController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(TimeSheet $entity)
+    private function createCreateForm(TimeSheet $entity, $id)
     {
         $security = $this->get('security.context');
-        $id = $security->getToken()->getUser()->getId();
+        $idAssoc = $security->getToken()->getUser()->getId();
 
         $form = $this->createForm(new TimeSheetType(), $entity, array(
-            'action' => $this->generateUrl('timesheet_create'),
+            'action' => $this->generateUrl('timesheet_create', array('day', $id)),
             'method' => 'POST',
-            'associateId' => $id,
+            'associateId' => $idAssoc,
+            'day' => $id,
         ));
 
         $form->add('submit', 'submit', array('label' => 'Créer'));
@@ -175,10 +204,10 @@ class TimeSheetController extends Controller
     /**
      * Displays a form to create a new TimeSheet entity.
      */
-    public function newAction()
+    public function newAction($id)
     {
         $entity = new TimeSheet();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $id);
 
         return $this->render('MPTimeSheetBundle:TimeSheet:new.html.twig', array(
             'entity' => $entity,
@@ -379,6 +408,9 @@ class TimeSheetController extends Controller
         $period = new \DatePeriod($startDate, $interval, $endDate);
 
         $week = array();
+        $currentDate = new \DateTime();
+        $currentDate->setTime(0, 0);
+        $timeStamp = $currentDate->getTimestamp();
 
         foreach( $period as $dt)
         {
@@ -389,6 +421,13 @@ class TimeSheetController extends Controller
                 if( $tm->getDay() == $tmDay->getDay())
                     $tmDay->setTimeSheet($tm);
             }
+
+            if ( ($tmDay->getDay()->getTimestamp() >= strtotime('-2 days', $timeStamp)) and
+                ($tmDay->getDay()->getTimestamp() <= $timeStamp) and
+                ($tmDay->getTimeSheet() == null))
+                $tmDay->setCreatable(true);
+
+            $tmDay->setDiffId((($timeStamp)-$tmDay->getDay()->getTimestamp())/86400);
 
             array_push($week, $tmDay);
         }

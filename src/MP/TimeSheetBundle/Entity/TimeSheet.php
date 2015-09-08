@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="MP\TimeSheetBundle\Entity\TimeSheetRepository")
  *
- * @UniqueEntity(fields={ "day", "associate"}, message="il y a déja une feuille de temps à cette date")
+ * @UniqueEntity(fields={ "day", "associate", "mission"}, message="il y a déja une feuille de temps à cette date")
  */
 class TimeSheet
 {
@@ -31,8 +31,8 @@ class TimeSheet
      * @ORM\Column(name="day", type="datetime")
      *
      * @Assert\Range(
-     *      min = " now -2 days",
-     *      max = "now",
+     *      min = " now -3 days",
+     *      max = "now +3 days",
      *      minMessage = "fin de delai"
      *
      * )

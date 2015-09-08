@@ -12,7 +12,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Email</th>
@@ -25,7 +24,6 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('associate_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.surname }}</td>
                 <td>{{ entity.email }}</td>
@@ -33,12 +31,13 @@
                 <td>{{ entity.department.name }}</td>
                 <td>
                     {% for assocM in entity.mission %}
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                   {{ assocM.mission }} <span class="badge">{{ ((assocM.mission.realHourNum / assocM.mission.hourNum)|round)*100 }}</span>
-                                </li>
-                            </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                               {{ assocM.mission }} <span class="badge">{{ ((assocM.mission.realHourNum / assocM.mission.hourNum)|round)*100 }}</span>
+                            </li>
+                        </ul>
                     {% endfor %}
+                    </div>
                 </td>
                 <td>
                     <a href="{{ path('associate_show', { 'id': entity.id }) }}">
